@@ -61,7 +61,7 @@ module.exports = {
     },
     getCountryById: async (id) => {
         try {
-            const countryId = await Country.findByPk(id, {include: {model: Activity}}) 
+            const countryId = await Country.findByPk(id, {include: Activity}) 
             console.log('id', countryId)
             return countryId
         } 

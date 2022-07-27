@@ -2,8 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {getCountries, getActivities, filterByActivity, filterByContinent, sortedCountries} from '../../Redux/Actions/Actions.js'
+import style from './Style.css'
+import Cards from '../Cards/Cards.jsx';
+import NavBar from '../NavBar/NavBar.jsx'
+import Filter from '../Filter/Filter.jsx'
 
-export default Home = () => {
+const Home = () => {
     const allCountries = useSelector(state => state.countries)
     const allActivities = useSelector(state => state.activities)
     const dispatch = useDispatch();
@@ -14,7 +18,7 @@ export default Home = () => {
     const lastCountry = currentPage === 1? 9 : firstCountry + 10;
     const currentCountries = allCountries.slice(firstCountry, lastCountry);
 
-    const pages = (pagesN) => {
+    const pages = (pageN) => {
         setCurrentPage(pageN);
     };
 
@@ -27,7 +31,7 @@ export default Home = () => {
     }, [dispatch])
 
     const handleFilterByContinent = (e) => {
-        e.preventDefault(),
+        e.preventDefault();
         dispatch(filterByContinent(e.target.value));
         setCurrentPage(1)
     }
@@ -73,5 +77,6 @@ export default Home = () => {
         </div>
         
     )
+};
 
-}
+export default Home
