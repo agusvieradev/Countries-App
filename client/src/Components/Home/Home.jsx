@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import {getCountries, getActivities, filterByActivity, filterByContinent, sortedCountries} from '../../Redux/Actions/Actions.js'
+import {getCountries, getActivities, filterByActivity, filterByContinent, sortByName, sortByPopulation} from '../../Redux/Actions/Actions.js'
 import style from './Style.css'
 import Cards from '../Cards/Cards.jsx';
 import NavBar from '../NavBar/NavBar.jsx'
@@ -12,7 +12,6 @@ const Home = () => {
     const allActivities = useSelector(state => state.activities)
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const [countriesPerPage] = useState(10)
     const [order, setOrder] = useState('');
     const firstCountry = currentPage === 1? 0 : currentPage * 10 - 10;
     const lastCountry = currentPage === 1? 9 : firstCountry + 10;
@@ -23,11 +22,11 @@ const Home = () => {
     };
 
     useEffect(() => {
-        dispatch(getCountries)
+        dispatch(getCountries())
     }, [dispatch])
 
     useEffect(() => {
-        dispatch(getActivities)
+        dispatch(getActivities())
     }, [dispatch])
 
     const handleFilterByContinent = (e) => {
@@ -42,9 +41,16 @@ const Home = () => {
         setCurrentPage(1)
     }
 
-    const handleSortedCountries = (e) => {
+    const handleSortByname = (e) => {
         e.preventDefault();
-        dispatch(sortedCountries(e.target.value));
+        dispatch(sortByName(e.target.value));
+        setCurrentPage(1);
+        setOrder(`${e.target.value}`)
+    }
+
+    const handleSortByPopulation = (e) => {
+        e.preventDefault();
+        dispatch(sortByPopulation(e.target.value));
         setCurrentPage(1);
         setOrder(`${e.target.value}`)
     }
@@ -63,13 +69,13 @@ const Home = () => {
                     handleReset = {handleReset}
                     handleFilterByActivity = {handleFilterByActivity}
                     handleFilterByContinent = {handleFilterByContinent}
-                    handleSortedCountries = {handleSortedCountries}
+                    handleSortByname = {handleSortByname}
+                    handleSortByPopulation = {handleSortByPopulation}
                 />
             </div>
             <Cards
                 allCountries = {allCountries}
                 currentCountries = {currentCountries}
-                countriesPerPage = {countriesPerPage}
                 currentPage = {currentPage}
                 setCurrentPage = {setCurrentPage}
                 pages = {pages}

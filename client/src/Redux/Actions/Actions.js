@@ -6,7 +6,8 @@ export const GET_ACTIVITIES = 'GET_ACTIVITIES';
 export const GET_COUNTRY = 'GET_COUNTRY';
 export const GET_DATA_COUNTRY = 'GET_DATA_COUNTRY';
 export const CLEAN_DATA_COUNTRY = 'CLEAN_DATA_COUNTRY';
-export const SORTED_COUNTRIES = 'SORTED_POKEMONS';
+export const SORT_BY_POPULATION = 'SORT_BY_POPULATION';
+export const SORT_BY_NAME = 'SORT_BY_NAME';
 export const FILTER_BY_CONTINENT= 'FILTER_BY_CONTINENT';
 export const FILTER_BY_ACTIVITY = 'FILTER_BY_ACTIVITY';
 
@@ -78,9 +79,16 @@ export const cleanDataCountry = () => {
     }
 }
 
-export const sortedCountries = (payload) => {
+export const sortByPopulation = (payload) => {
     return {
-        type: SORTED_COUNTRIES,
+        type: SORT_BY_POPULATION,
+        payload: payload
+    }
+}
+
+export const sortByName = (payload) => {
+    return {
+        type: SORT_BY_NAME,
         payload: payload
     }
 }

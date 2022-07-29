@@ -5,9 +5,10 @@ import {
     GET_COUNTRY, 
     GET_DATA_COUNTRY, 
     CLEAN_DATA_COUNTRY,
-    SORTED_COUNTRIES,
+    SORT_BY_POPULATION,
+    SORT_BY_NAME,
     FILTER_BY_CONTINENT,
-    FILTER_BY_ACTIVITY
+    FILTER_BY_ACTIVITY,
 } from './../Actions/Actions.js';
 
 const initialState = {
@@ -39,7 +40,7 @@ const rootReducer = (state = initialState, action) => {
 
         case GET_COUNTRY: return {
             ...state,
-            countries: [action.payload]
+            countries: action.payload
         }
 
         case GET_DATA_COUNTRY: return {
@@ -51,62 +52,62 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             countryData: action.payload
         }
-
-        case SORTED_COUNTRIES:
-            const countries2 = state.country;
-            let sortedCountries; 
-            if (action.payload !== 'ABC'){
-               if(action.payload === "ZYX") {
-                    sortedCountries = countries2.sort((a, b) => {
-                        if (a.name > b.name) return -1;
-                        if (a.name < b.name) return 1;
-                        return 0;
-                    });
-               }
-               else {
-                    if(action.payload === 'asc') sortedCountries = countries2.sort((a, b)=> a.population -b.population);
-                    else {
-                        if(action.payload === 'desc') sortedCountries = countries2.sort((a, b)=> b.population - a.population)
-                        else sortedCountries = countries2; 
-                    }
-               }
-            }
-            else {
-                sortedCountries = countries2.sort( (a, b)=> {
-                    if (a.name > b.name) return 1;
-                    if (a.name < b.name) return -1;
-                    return 0
-                })
-            }
+        
+        case FILTER_BY_CONTINENT: 
+            state.countries = state.country
             return {
                 ...state,
-                country: sortedCountries
+                countries:  action.payload !== 'all' ? state.countries.filter(e => e.continent === action.payload) : state.country
             }
         
         case FILTER_BY_ACTIVITY: 
-            const filteredAct = state.filteredActivity[0]? state.filteredActivity: state.country;
-            let filterByActivity;
-            if(action.payload === 'all' && filteredAct[0]) filterByActivity = filteredAct;
-            else filterByActivity = filteredAct.filter( e => e.activities === action.payload);
+            state.countries = state.country
             return {
                 ...state,
-                countries: filterByActivity[0]? filterByActivity: [{msg: `No such Country with that activity in this continent`}]
+                countries: action.payload !== 'all' ? state.countries.filter(el => el.activities.find(e => (e.name).toLowerCase() === (action.payload).toLowerCase())) : state.country
             }
 
-        case FILTER_BY_CONTINENT: 
-            const filteredCont = state.filtered[0]? state.filtered: state.country;
-            let filterByContinent;
-            if(action.payload === 'all' && filteredCont[0]) filterByContinent = filteredCont;
-            filterByContinent = filteredCont.filter( e => e.continent === action.payload)
+        case SORT_BY_NAME: 
+            let alphabetic = state.countries;
+            let sortedByName = action.payload === "ABC" ? 
+            alphabetic.sort( (a, b) => {
+                if (a.name > b.name) {
+                  return 1;
+                }
+                else if (b.name > a.name) {
+                  return -1;
+                }
+                return 0;
+            }) : 
+            alphabetic.sort( (a, b) =>{
+                if (a.name > b.name) {
+                  return -1;
+                }
+                if (b.name > a.name) {
+                  return 1;
+                }
+                return 0;
+            });
+          return {
+            ...state,
+            countries: sortedByName,
+          };
+
+
+
+
+        case SORT_BY_POPULATION:
+            let pupulation = state.countries
+            let sortedByPopulation = action.payload === 'asc'?
+                pupulation.sort((a, b)=> b.population - a.population):
+                pupulation.sort((a, b)=> a.population -b.population)
             return {
                 ...state,
-                countries: filterByContinent,
-                filtered: filterByContinent
+                countries: sortedByPopulation
             }
         default: 
-            return state;
-
+            return state
     }
-
+    
 };
 export default rootReducer;

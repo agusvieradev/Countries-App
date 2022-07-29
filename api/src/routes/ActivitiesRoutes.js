@@ -23,5 +23,13 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    let id = req.params.id
+    if (id){
+        await Activity.destroy({where: {id: id}})
+    }
+})
+
+
 module.exports = router
 
