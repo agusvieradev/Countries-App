@@ -75,7 +75,6 @@ module.exports = {
                 where: {name: {[Op.iLike]: `%${param}%`}},
                 include: Activity
             })
-        console.log('name', countryByName)
             return countryByName
         } catch (error) {
             throw new Error('Not Country Found');

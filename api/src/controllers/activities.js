@@ -6,8 +6,8 @@ module.exports= {
             where: { name: name },
             defaults: { name, difficulty, duration, season },
         });
-        let activitycoutry = await Country.findAll({ where: { id: countries } });
-        activitycoutry.map(async (country) => {
+        let activitycountry = await Country.findAll({ where: { name: countries } });
+        activitycountry.map(async (country) => {
             await country.addActivity(createActivity[0].id);
         });
         }

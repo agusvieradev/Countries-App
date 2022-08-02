@@ -69,25 +69,35 @@ const rootReducer = (state = initialState, action) => {
 
         case SORT_BY_NAME: 
             let alphabetic = state.countries;
-            let sortedByName = action.payload === "ABC" ? 
-            alphabetic.sort( (a, b) => {
-                if (a.name > b.name) {
-                  return 1;
+            let sortedByName;
+            if (action.payload === "ABC") {
+                sortedByName = alphabetic.sort((a, b) => {
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    else if (b.name > a.name) {
+                      return -1;
+                    }
+                    return 0;
+                })
+                if (action.payload === 'None'){
+                    sortedByName = state.country
                 }
-                else if (b.name > a.name) {
-                  return -1;
+            }
+            else {
+                sortedByName = alphabetic.sort((a, b) =>{
+                    if (a.name > b.name) {
+                      return -1;
+                    }
+                    if (b.name > a.name) {
+                      return 1;
+                    }
+                    return 0;
+                });
+                if(action.payload === 'None'){
+                    sortedByName = state.country
                 }
-                return 0;
-            }) : 
-            alphabetic.sort( (a, b) =>{
-                if (a.name > b.name) {
-                  return -1;
-                }
-                if (b.name > a.name) {
-                  return 1;
-                }
-                return 0;
-            });
+            }
           return {
             ...state,
             countries: sortedByName,

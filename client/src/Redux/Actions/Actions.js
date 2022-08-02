@@ -22,9 +22,9 @@ export const getCountries = () => {
     }
 }
 
-export const createActivity = () => {
-    return (dispatch) => {
-        return axios.post('http://localhost:3001/activities')
+export const createActivity = (activity) => {
+    return async (dispatch) => {
+        return await axios.post('http://localhost:3001/activities', activity)
         .then( response => dispatch({
             type: CREATE_ACTIVITY,
             payload: response.data

@@ -33,26 +33,25 @@ const Home = () => {
         e.preventDefault();
         dispatch(filterByContinent(e.target.value));
         setCurrentPage(1)
+    
     }
 
     const handleFilterByActivity = (e) => {
         e.preventDefault();
         dispatch(filterByActivity(e.target.value));
-        setCurrentPage(1)
+        setCurrentPage(1);
     }
 
     const handleSortByname = (e) => {
         e.preventDefault();
         dispatch(sortByName(e.target.value));
-        setCurrentPage(1);
-        setOrder(`${e.target.value}`)
+        setOrder(`${e.target.value}`);
     }
 
     const handleSortByPopulation = (e) => {
         e.preventDefault();
         dispatch(sortByPopulation(e.target.value));
-        setCurrentPage(1);
-        setOrder(`${e.target.value}`)
+        setOrder(`${e.target.value}`);
     }
 
     const handleReset = (e) => {
@@ -61,9 +60,9 @@ const Home = () => {
     }
 
     return (
-        <div className={style.homeCointainer}>
+        <div className = 'homeContainer'>
             <NavBar/>
-            <div className={style.homeFilter}>
+            <div className = 'filter'>
                 <Filter
                     allActivities = {allActivities}
                     handleReset = {handleReset}

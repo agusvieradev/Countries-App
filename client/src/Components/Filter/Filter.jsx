@@ -39,7 +39,7 @@ const Filter = ({allActivities, handleReset, handleFilterByActivity, handleFilte
             </div>
             <button onClick={(e) => handleReset(e)}>Reset</button>
             <hr/>
-            <Link to = 'activities/create'>
+            <Link to = '/createActivity'>
                 <button>Create Activity</button>
             </Link>
         </div>
