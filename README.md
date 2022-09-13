@@ -1,6 +1,6 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
+![AGUS VIERA DEV](https://i.ibb.co/3d73KwQ/Banner-con-foto-Azul-y-Blanco.png)
 
-# Individual Project - Henry Countries
+# Countries App 
 
 <p align="left">
   <img height="200" src="./countries.png" />
